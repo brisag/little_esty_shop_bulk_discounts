@@ -14,17 +14,20 @@ RSpec.describe "As a merchant" do
     end
 
     it "I see the bulk discount's quantity threshold and percentage discount" do
-      # save_and_open_page
       expect(page).to_not have_content("#{@discount_1.percent_discount}% off when you buy #{@discount_1.quantity_threshold} items.")
       expect(page).to have_no_content("20")
       expect(page).to have_no_content("30")
 
     end
 
-    # it "shows a link to edit the bulk discount" do
-    #   visit merchant_discount_path(@merchant1, @discount_1)
-    #
-    #   expect(page).to have_link("Edit Discount")
-    # end
+    describe "I see a link to edit page" do
+      it "when i click on the link, it redirects me to form to edit" do
+
+        expect(page).to have_link("Edit Discount")
+        click_link "Edit Discount"
+
+        expect(current_path).to eq(edit_merchant_discount_path(@merchant1, @discount_1))
+      end
+    end
   end
 end
