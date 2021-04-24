@@ -4,6 +4,6 @@
     <%= form.label "Change Percent Discount" %>
     <%= form.number_field :percent_discount, min: 0, step: 0.01, max: 1, value: @discount.percent_discount %><br>
     <%= form.label "Change Quantity" %>
-    <%= form.number_field :quantity, min: 1, value: @discount.quantity_threshold %><br>
+    <%= form.number_field :quantity_threshold, min: 1, value: @discount.quantity_threshold %><br>
     <%= form.submit "Edit Discount" %>
 <% end %>
