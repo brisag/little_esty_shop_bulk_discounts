@@ -41,5 +41,19 @@ RSpec.describe "As a merchant" do
         expect(current_path).to eq(new_merchant_discount_path(@merchant1))
       end
     end
+
+    describe "I see a link to Delete Discount" do
+      it "When i click on this link, i am redirected back to index page and i no longer see it on discoubnt page" do
+        save_and_open_page
+        within "#discount-#{@discount_1.id}" do
+          expect(page).to have_link("Delete Discount")
+          click_link("Delete Discount")
+
+          expect(current_path).to eq(merchant_discounts_path(@merchant1))
+          expect(page).to_not have_content("#{@discount_1.percent_discount}% off when you buy #{@discount_1.quantity_threshold} items.")
+          expect(page).to have_content("#{@discount_2.percent_discount}% off when you buy #{@discount_2.quantity_threshold} items.")
+        end
+      end
+    end
   end
 end
