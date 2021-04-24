@@ -4,7 +4,7 @@ RSpec.describe "As a merchant" do
   describe "When i visit the Discount Index Page" do
     before :each do
       @merchant1 = Merchant.create!(name: 'Hair Care')
-      @merchant2 = Merchant.create!(name: 'Body Care')
+      @merchant2 = Merchant.create!(name: 'Jewelry')
 
       @discount_1 = Discount.create!(percent_discount: 10, quantity_threshold: 10, merchant_id: @merchant1.id)
       @discount_2 = Discount.create!(percent_discount: 25, quantity_threshold: 20, merchant_id: @merchant1.id)
