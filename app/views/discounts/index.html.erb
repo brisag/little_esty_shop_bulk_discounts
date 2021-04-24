@@ -1,0 +1,12 @@
+<h2><%= @merchant.name %>'s Discounts</h2>
+
+<h3>Discounts:</h3>
+
+<% @merchant.discounts.each do |discount| %>
+  <section id="discount-<%= discount.id %>">
+  <%= "#{discount.percent_discount}% off when you buy #{discount.quantity_threshold} items." %><br>
+  <%= link_to "Discount", merchant_discount_path(@merchant, discount) %><br>
+  </section>
+<% end %>
+
+<%= link_to "Create New Discount", new_merchant_discount_path(@merchant), method: :get %>
