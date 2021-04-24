@@ -15,7 +15,7 @@
     <p class='mr-auto col-sm-5'>Incomplete Invoices</p>
       <ul class='ml-auto col-sm-4'>
         <% @customers.each do |c| %>
-          <li><%= c.first_name + ' ' + c.last_name %> - 
+          <li><%= c.first_name + ' ' + c.last_name %> -
           <%= c.number_of_transactions %> Purchases
         <% end %>
       </ul>
@@ -26,4 +26,3 @@
       </ul>
   </div>
 </body>
-    
