@@ -14,7 +14,7 @@ RSpec.describe "As a merchant" do
     end
 
     it "can show all my bulk discounts with percentage discount and quantity thresholds" do
-
+      # save_and_open_page
       expect(page).to have_content("#{@discount_1.percent_discount}% off when you buy #{@discount_1.quantity_threshold} items.")
       expect(page).to have_content("#{@discount_2.percent_discount}% off when you buy #{@discount_2.quantity_threshold} items.")
     end
@@ -27,13 +27,19 @@ RSpec.describe "As a merchant" do
 
         expect(current_path).to eq(merchant_discount_path(@merchant1, @discount_1))
       end
+    end
 
-      # within "#discount-#{@discount_2.id}" do
-      #   expect(page).to have_link("Discount")
-      #   click_link("Discount")
-      #
-      #   expect(current_path).to eq(merchant_discount_path(@merchant1, @discount_2))
-      # end
+    describe "Link to create new merchant" do
+      it "I see a link to create a new discount" do
+        expect(page).to have_link("Create New Discount")
+      end
+
+      it "takes me  to a form to create new discount" do
+        expect(page).to have_link("Create New Discount")
+        click_link "Create New Discount"
+
+        expect(current_path).to eq(new_merchant_discount_path(@merchant1))
+      end
     end
   end
 end
