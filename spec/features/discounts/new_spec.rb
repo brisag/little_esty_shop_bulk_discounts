@@ -10,7 +10,7 @@ RSpec.describe "Create New Discounts" do
     end
 
     it "shows a user form to create a new bulk discount and creates it" do
-      save_and_open_page
+
       expect(page).to have_content("Create New Discount")
 
       fill_in("percent_discount", with: 0.1)
