@@ -12,19 +12,22 @@ RSpec.describe "As a visitor" do
     end
 
     it "it shows a form with prepopulated attributes" do
-      expect(page).to have_field("percent_discount", :with => "0.1")
-      expect(page).to have_field("quantity_threshold", :with => "15")
+      expect(find_field('percent_discount').value).to eq('0.1')
+      expect(find_field('quantity_threshold').value).to eq('15')
     end
 
     it "allows me to change any or all og the attributes and if i click submit, im redirected to show page with updates" do
-      save_and_open_page
-      fill_in("Change percent discount", with: 0.17)
+      # save_and_open_page
+      fill_in("percent_discount", with: 0.17)
+      fill_in("quantity_threshold", with: 15)
 
       click_button("Edit Discount")
 
       expect(current_path).to eq(merchant_discount_path(@merchant1, @discount_1))
+      # save_and_open_page
+      expect(page).to have_content("Discount Percent: 0.17%")
+      expect(page).to have_content("Quantity Threshold: 15 Items")
 
-      expect(page).to have_content("Discount percentage: 0.17, item quantity: 15")
     end
   end
 end
