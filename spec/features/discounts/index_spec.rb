@@ -44,7 +44,7 @@ RSpec.describe "As a merchant" do
 
     describe "I see a link to Delete Discount" do
       it "When i click on this link, i am redirected back to index page and i no longer see it on discoubnt page" do
-        save_and_open_page
+        # save_and_open_page
         within "#discount-#{@discount_1.id}" do
           expect(page).to have_link("Delete Discount")
           click_link("Delete Discount")
