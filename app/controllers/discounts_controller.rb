@@ -19,6 +19,23 @@ class DiscountsController < ApplicationController
     end
   end
 
+  def edit
+    @merchant = Merchant.find(params[:merchant_id])
+    @discount = Discount.find(params[:id])
+  end
+
+  def update
+    @merchant = Merchant.find(params[:merchant_id])
+    @discount = Discount.find(params[:id])
+    @discount.update(discount_params)
+    if @discount.save
+      redirect_to merchant_discount_path(@merchant, @discount)
+    else
+      flash[:error] = "Your Discount Was Not Saved"
+      render :edit
+    end
+  end
+
   def show
     # binding.pry
     @merchant = Merchant.find(params[:merchant_id])
