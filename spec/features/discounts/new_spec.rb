@@ -21,5 +21,11 @@ RSpec.describe "Create New Discounts" do
       expect(page).to have_current_path(merchant_discounts_path(@merchant1))
       expect(page).to have_content("#{@merchant1.discounts.first.percent_discount}% off when you buy #{@merchant1.discounts.first.quantity_threshold} items.")
     end
+
+    it 'if user fills in invalid/no data into the form, it doesnt create the discount' do
+
+      click_button("Create Discount")
+      expect(page).to have_content('Missing Fields')
+    end
   end
 end

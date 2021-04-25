@@ -29,5 +29,14 @@ RSpec.describe "As a visitor" do
       expect(page).to have_content("Quantity Threshold: 15 Items")
 
     end
+
+    it 'when i enter invalid fields into the form it doesnt update the discount' do
+
+      fill_in("percent_discount", with: "")
+      fill_in("quantity_threshold", with: "")
+      click_button("Edit Discount")
+
+      expect(page).to have_content('Your Discount Was Not Saved')
+    end
   end
 end
