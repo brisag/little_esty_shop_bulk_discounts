@@ -1,8 +1,6 @@
 <h2><%= @merchant.name %>'s Discounts</h2>
 
-
-<%= link_to "Create New Discount", new_merchant_discount_path(@merchant), method: :get %>
-
+<h3>Discounts:</h3>
 
 <% @merchant.discounts.each do |discount| %>
   <section id="discount-<%= discount.id %>">
@@ -12,3 +10,5 @@
 
   </section>
 <% end %><br>
+
+<%= link_to "Create New Discount", new_merchant_discount_path(@merchant), method: :get %>

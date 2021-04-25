@@ -51,12 +51,10 @@ RSpec.describe 'invoices show' do
     @transaction6 = Transaction.create!(credit_card_number: 879799, result: 0, invoice_id: @invoice_6.id)
     @transaction7 = Transaction.create!(credit_card_number: 203942, result: 1, invoice_id: @invoice_7.id)
     @transaction8 = Transaction.create!(credit_card_number: 203942, result: 1, invoice_id: @invoice_8.id)
-
-    visit merchant_invoice_path(@merchant1, @invoice_1)
-
   end
 
   it "shows the invoice information" do
+    visit merchant_invoice_path(@merchant1, @invoice_1)
 
     expect(page).to have_content(@invoice_1.id)
     expect(page).to have_content(@invoice_1.status)
@@ -64,6 +62,7 @@ RSpec.describe 'invoices show' do
   end
 
   it "shows the customer information" do
+    visit merchant_invoice_path(@merchant1, @invoice_1)
 
     expect(page).to have_content(@customer_1.first_name)
     expect(page).to have_content(@customer_1.last_name)
@@ -71,6 +70,7 @@ RSpec.describe 'invoices show' do
   end
 
   it "shows the item information" do
+    visit merchant_invoice_path(@merchant1, @invoice_1)
 
     expect(page).to have_content(@item_1.name)
     expect(page).to have_content(@ii_1.quantity)
@@ -80,11 +80,13 @@ RSpec.describe 'invoices show' do
   end
 
   it "shows the total revenue for this invoice" do
+    visit merchant_invoice_path(@merchant1, @invoice_1)
 
     expect(page).to have_content(@invoice_1.total_revenue)
   end
 
   it "shows a select field to update the invoice status" do
+    visit merchant_invoice_path(@merchant1, @invoice_1)
 
     within("#the-status-#{@ii_1.id}") do
       page.select("cancelled")
@@ -94,19 +96,4 @@ RSpec.describe 'invoices show' do
      end
   end
 
-  it "I see the total revenue for my merchant includes the bulk discount in the calculation" do
-
-    # expect(page).to have_content(@invoice_1.total_revenue_with_discount)
-  end
-
-
-  # it "Shows a link to the the show page for the bulk discount that was applied if any" do
-  #   within("#the-status-#{@item_1.id}") do
-  #       expect(page).to have_link("Discount ##{@discount.id}")
-  #     end
-  #
-  #     within("#the-status-#{@item_2.id}") do
-  #       expect(page).to have_link("Discount ##{@discount.id}")
-  #   end
-  # end
 end

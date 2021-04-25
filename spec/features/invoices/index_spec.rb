@@ -67,15 +67,15 @@ describe "merchant invoices index" do
 
   it "for each invoice id it is a link to the merchant invoice show page" do
     visit merchant_invoices_path(@merchant1)
-    # skipping this test from original repo due to: Locator Integer:2754 for selector :link must be an instance of String or Symbol. This will raise an error in a future version of Capybara. Solution: change the have_link to have_content
-    expect(page).to have_content(@invoice_1.id)
-    expect(page).to have_content(@invoice_2.id)
-    expect(page).to have_content(@invoice_3.id)
-    expect(page).to have_content(@invoice_4.id)
-    expect(page).to have_content(@invoice_5.id)
-    expect(page).to have_content(@invoice_6.id)
-    expect(page).to have_content(@invoice_7.id)
-    expect(page).to_not have_content(@invoice_8.id)
+
+    expect(page).to have_link(@invoice_1.id)
+    expect(page).to have_link(@invoice_2.id)
+    expect(page).to have_link(@invoice_3.id)
+    expect(page).to have_link(@invoice_4.id)
+    expect(page).to have_link(@invoice_5.id)
+    expect(page).to have_link(@invoice_6.id)
+    expect(page).to have_link(@invoice_7.id)
+    expect(page).to_not have_link(@invoice_8.id)
 
     click_link "#{@invoice_1.id}"
 
