@@ -5,11 +5,22 @@ class Holiday
   end
 
   def next_three_holidays
-    upcoming_holidays = ""
+    swagger_holidays = ""
     # binding.pry
     @parse_data.each do |holiday|
-      upcoming_holidays += "#{holiday[:name]}, #{holiday[:date]} "
+      swagger_holidays += "#{holiday[:name]}, #{holiday[:date]} "
     end
-    upcoming_holidays[0..-1]
+    swagger_holidays[0..-1]
   end
 end
+
+
+
+# class Holiday
+#   attr_reader :name,
+#               :date
+#   def initialize(data)
+#     @name = data[:name]
+#     @date = data[:date]
+#   end
+# end
