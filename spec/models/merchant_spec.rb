@@ -16,7 +16,7 @@ describe Merchant do
   describe "instance methods" do
     before :each do
       @merchant1 = Merchant.create!(name: 'Hair Care')
-      @merchant2 = Merchant.create!(name: 'Jewelry')
+      @merchant2 = Merchant.create!(name: 'Wellness')
 
       @item_1 = Item.create!(name: "Shampoo", description: "This washes your hair", unit_price: 10, merchant_id: @merchant1.id, status: 1)
       @item_2 = Item.create!(name: "Conditioner", description: "This makes your hair shiny", unit_price: 8, merchant_id: @merchant1.id)
