@@ -4,6 +4,10 @@ describe 'Admin Invoices Index Page' do
   before :each do
     @m1 = Merchant.create!(name: 'Merchant 1')
 
+    @discount1 = Discount.create!(percent_discount: 0.20, quantity_threshold: 10, merchant_id: @m1.id)
+    @discount2 = Discount.create!(percent_discount: 0.15, quantity_threshold: 8, merchant_id: @m1.id)
+    @discount7 = Discount.create!(percent_discount: 0.50, quantity_threshold: 50, merchant_id: @m1.id)
+
     @c1 = Customer.create!(first_name: 'Yo', last_name: 'Yoz', address: '123 Heyyo', city: 'Whoville', state: 'CO', zip: 12345)
     @c2 = Customer.create!(first_name: 'Hey', last_name: 'Heyz')
 
@@ -67,6 +71,15 @@ describe 'Admin Invoices Index Page' do
 
       expect(current_path).to eq(admin_invoice_path(@i1))
       expect(@i1.status).to eq('complete')
+    end
+  end
+
+  describe 'When I visit the Admin invoice show page'do
+    it 'I see that the total revenue includes bulk discounts in the calculation' do
+
+      expect(page).to have_content("Total Revenue with Discount")
+      expect(page).to have_content(@i1.calculate_total_revenue_with_discounts)
+      expect(page).to have_content(25.2)
     end
   end
 end
