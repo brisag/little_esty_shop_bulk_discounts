@@ -13,4 +13,45 @@ class Invoice < ApplicationRecord
   def total_revenue
     invoice_items.sum("unit_price * quantity")
   end
+
+  def find_discount
+    items.joins(merchant: :discounts)
+    .select("invoice_items.item_id, max(invoice_items.quantity * invoice_items.unit_price * discounts.percent_discount)")
+    .where("invoice_items.quantity >= discounts.quantity_threshold AND merchants.id = discounts.merchant_id")
+    .group("invoice_items.item_id")
+  end
+
+  def revenue_with_discount
+    #use recurssion since we get multiple rows of data
+    discounts_total = 0
+
+    find_discount.each do |row|
+      discounts_total += row.max
+    end
+    discounts_total
+  end
+
+
+  def calculate_total_revenue_with_discounts
+    total_revenue - revenue_with_discount
+  end
 end
+#
+# def applicable_discount
+#   discounts
+#   .where('? >= quantity_threshold', self.quantity)
+#   .order(discount: :desc, threshold: :desc)
+#   .pluck(:discount, :id)
+#   .first
+# end
+
+# Invoice Class
+#apply to invoice class directly instead.  no id needed
+
+# def self.find_discount(id)
+#   joins(merchant: :discounts).
+#   select('invoice_items.*, discounts.percent_discount AS discount, discounts.id AS discount_id').
+#   where("invoice_items.id = ? AND invoice_items.quantity >= discounts.quantity_threshold", id).
+#   order('discounts.percent_discount DESC').
+#   limit(1).first
+# end
