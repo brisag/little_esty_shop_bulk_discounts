@@ -5,6 +5,10 @@ RSpec.describe 'invoices show' do
     @merchant1 = Merchant.create!(name: 'Hair Care')
     @merchant2 = Merchant.create!(name: 'Jewelry')
 
+    @discount1 = Discount.create!(percent_discount: 0.20, quantity_threshold: 10, merchant_id: @merchant1.id)
+    @discount2 = Discount.create!(percent_discount: 0.15, quantity_threshold: 8, merchant_id: @merchant1.id)
+    @discount7 = Discount.create!(percent_discount: 0.50, quantity_threshold: 50, merchant_id: @merchant1.id)
+
     @item_1 = Item.create!(name: "Shampoo", description: "This washes your hair", unit_price: 10, merchant_id: @merchant1.id, status: 1)
     @item_2 = Item.create!(name: "Conditioner", description: "This makes your hair shiny", unit_price: 8, merchant_id: @merchant1.id)
     @item_3 = Item.create!(name: "Brush", description: "This takes out tangles", unit_price: 5, merchant_id: @merchant1.id)
@@ -42,6 +46,8 @@ RSpec.describe 'invoices show' do
     @ii_9 = InvoiceItem.create!(invoice_id: @invoice_7.id, item_id: @item_4.id, quantity: 1, unit_price: 1, status: 1)
     @ii_10 = InvoiceItem.create!(invoice_id: @invoice_8.id, item_id: @item_5.id, quantity: 1, unit_price: 1, status: 1)
     @ii_11 = InvoiceItem.create!(invoice_id: @invoice_1.id, item_id: @item_8.id, quantity: 12, unit_price: 6, status: 1)
+    @ii_12 = InvoiceItem.create!(invoice_id: @invoice_1.id, item_id: @item_3.id, quantity: 4, unit_price: 6, status: 1)
+
 
     @transaction1 = Transaction.create!(credit_card_number: 203942, result: 1, invoice_id: @invoice_1.id)
     @transaction2 = Transaction.create!(credit_card_number: 230948, result: 1, invoice_id: @invoice_2.id)
@@ -96,4 +102,30 @@ RSpec.describe 'invoices show' do
      end
   end
 
+  describe 'When I visit the merchant invoice show page'do
+    it 'Then I see that the total revenue for my merchant includes bulk discounts in the calculation' do
+      visit merchant_invoice_path(@merchant1, @invoice_1)
+
+      expect(page).to have_content("Total Revenue with Discount")
+      expect(page).to have_content(@invoice_1.calculate_total_revenue_with_discounts)
+      expect(page).to have_content(158.1)
+    end
+
+    it "shows a link to view discount if discount is applied" do
+      visit merchant_invoice_path(@merchant1, @invoice_1)
+
+      # save_and_open_page
+      within("#the-status-#{@ii_1.id}") do
+        expect(page).to have_link("Discount")
+      end
+
+      within("#the-status-#{@ii_11.id}") do
+        expect(page).to have_link("Discount")
+      end
+
+      within("#the-status-#{@ii_12.id}") do
+        expect(page).to have_no_link("Discount")
+      end
+    end
+  end
 end
