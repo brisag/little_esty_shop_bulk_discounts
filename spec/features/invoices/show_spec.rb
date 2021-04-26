@@ -108,7 +108,7 @@ RSpec.describe 'invoices show' do
 
       expect(page).to have_content("Total Revenue with Discount")
       expect(page).to have_content(@invoice_1.calculate_total_revenue_with_discounts)
-      expect(page).to have_content(129.6)
+      expect(page).to have_content(158.1)
     end
 
     it "shows a link to view discount if discount is applied" do
