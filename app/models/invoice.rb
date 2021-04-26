@@ -21,19 +21,19 @@ class Invoice < ApplicationRecord
     .group("invoice_items.item_id")
   end
 
-  def revenue_with_discount
-    #use recurssion since we get multiple rows of data
+  def total_discount_revenue
+    #use recursion since we get multiple rows of data
     discounts_total = 0
-
+    # binding.pry
     find_discount.each do |row|
       discounts_total += row.max
     end
-    discounts_total
+     discounts_total
   end
 
 
   def calculate_total_revenue_with_discounts
-    total_revenue - revenue_with_discount
+    total_revenue - total_discount_revenue
   end
 end
 
