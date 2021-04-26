@@ -36,14 +36,7 @@ class Invoice < ApplicationRecord
     total_revenue - revenue_with_discount
   end
 end
-#
-# def applicable_discount
-#   discounts
-#   .where('? >= quantity_threshold', self.quantity)
-#   .order(discount: :desc, threshold: :desc)
-#   .pluck(:discount, :id)
-#   .first
-# end
+
 
 # Invoice Class
 #apply to invoice class directly instead.  no id needed
