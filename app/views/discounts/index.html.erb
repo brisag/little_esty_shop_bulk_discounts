@@ -3,7 +3,8 @@
 <h4>Upcoming Holidays:</h4>
 <% @holidayservices.each do |holiday| %>
   <section id="holiday-<%= holiday.date %>">
-    * <%= holiday.name %> - <%= holiday.date %><br>
+    <%= holiday.name %> - <%= holiday.date %><br>
+
   </section>
 <% end %><br>
 
