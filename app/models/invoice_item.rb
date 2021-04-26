@@ -19,14 +19,6 @@ class InvoiceItem < ApplicationRecord
 
 
 
-
-  # def discount
-  #   discounts
-  #   .where('? >= discounts.quantity_threshold', quantity)
-  #   .order('discounts.percent_discount desc, discounts.quantity_threshold')
-  #   .first
-  # end
-
   def discount_threshold
     discounts
     .where('? >= quantity_threshold', self.quantity)
@@ -35,11 +27,3 @@ class InvoiceItem < ApplicationRecord
     .first
   end
 end
-
-  # def applicable_discount
-  #   discounts
-  #   .where('? >= quantity_threshold', self.quantity)
-  #   .order(discount: :desc, threshold: :desc)
-  #   .pluck(:discount, :id)
-  #   .first
-  # end
