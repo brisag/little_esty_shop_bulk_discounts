@@ -4,7 +4,7 @@ RSpec.describe "Create New Discounts" do
   describe "As a mercahnt, I am taken to a new Page" do
     before :each do
       @merchant1 = Merchant.create!(name: 'Hair Care')
-      @merchant2 = Merchant.create!(name: 'Jewlery')
+      @merchant2 = Merchant.create!(name: 'Wellness')
 
       visit new_merchant_discount_path(@merchant1)
     end

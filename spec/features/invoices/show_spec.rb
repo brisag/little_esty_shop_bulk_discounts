@@ -3,11 +3,11 @@ require 'rails_helper'
 RSpec.describe 'invoices show' do
   before :each do
     @merchant1 = Merchant.create!(name: 'Hair Care')
-    @merchant2 = Merchant.create!(name: 'Jewelry')
+    @merchant2 = Merchant.create!(name: 'Wellness')
 
     @discount1 = Discount.create!(percent_discount: 0.20, quantity_threshold: 10, merchant_id: @merchant1.id)
-    @discount2 = Discount.create!(percent_discount: 0.15, quantity_threshold: 8, merchant_id: @merchant1.id)
-    @discount7 = Discount.create!(percent_discount: 0.50, quantity_threshold: 50, merchant_id: @merchant1.id)
+    @discount2 = Discount.create!(percent_discount: 0.30, quantity_threshold: 15, merchant_id: @merchant1.id)
+
 
     @item_1 = Item.create!(name: "Shampoo", description: "This washes your hair", unit_price: 10, merchant_id: @merchant1.id, status: 1)
     @item_2 = Item.create!(name: "Conditioner", description: "This makes your hair shiny", unit_price: 8, merchant_id: @merchant1.id)
@@ -108,7 +108,7 @@ RSpec.describe 'invoices show' do
 
       expect(page).to have_content("Total Revenue with Discount")
       expect(page).to have_content(@invoice_1.calculate_total_revenue_with_discounts)
-      expect(page).to have_content(158.1)
+      expect(page).to have_content(171.6)
     end
 
     it "shows a link to view discount if discount is applied" do
@@ -116,7 +116,7 @@ RSpec.describe 'invoices show' do
 
       # save_and_open_page
       within("#the-status-#{@ii_1.id}") do
-        expect(page).to have_link("Discount")
+        expect(page).to_not have_link("Discount")
       end
 
       within("#the-status-#{@ii_11.id}") do
@@ -124,7 +124,7 @@ RSpec.describe 'invoices show' do
       end
 
       within("#the-status-#{@ii_12.id}") do
-        expect(page).to have_no_link("Discount")
+        expect(page).to_not have_link("Discount")
       end
     end
   end
