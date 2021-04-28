@@ -15,8 +15,8 @@ RSpec.describe "As a merchant" do
 
     it "I see the bulk discount's quantity threshold and percentage discount" do
       expect(page).to_not have_content("#{@discount_1.percent_discount}% off when you buy #{@discount_1.quantity_threshold} items.")
-      expect(page).to have_no_content("20")
-      expect(page).to have_no_content("30")
+      expect(page).to have_no_content(@discount_2.percent_discount)
+      expect(page).to have_no_content(@discount_3.percent_discount)
 
     end
 
