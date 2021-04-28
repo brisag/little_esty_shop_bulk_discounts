@@ -1,23 +1,21 @@
-<h2><%= @merchant.name %>'s Discounts</h2>
+<h1><%= @merchant.name %>'s Discounts</h1>
 
 <h4>Upcoming Holidays:</h4>
 <% @holidayservices.each do |holiday| %>
   <section id="holiday-<%= holiday.date %>">
     <%= holiday.name %> - <%= holiday.date %><br>
-
   </section>
-<% end %><br>
+<% end %>
 
-<%= link_to "Create New Discount", new_merchant_discount_path(@merchant), method: :get %>
-
-
-
-
+<h2>Discounts:</h2>
 <% @merchant.discounts.each do |discount| %>
-  <section id="discount-<%= discount.id %>">
-  <%= "#{discount.percent_discount}% off when you buy #{discount.quantity_threshold} items." %><br>
-  <%= link_to "Discount", merchant_discount_path(@merchant, discount) %><br>
-  <%= link_to "Delete Discount", merchant_discount_path(@merchant, discount), method: :delete %><br>
+  <section id='discount-<%= discount.id %>'>
+    <p>Discount ID: <%= discount.id %></p><br>
+    <%= "#{discount.percent_discount}% off when you buy #{discount.quantity_threshold} items." %><br>
+    <%= link_to "Discount Info", merchant_discount_path(@merchant, discount) %><br>
+    <%= link_to "Delete Discount", merchant_discount_path(@merchant, discount), method: :delete %><br>
 
   </section>
-<% end %><br>
+<% end %>
+
+<%= button_to "Create New Discount", new_merchant_discount_path(@merchant), method: :get %>
