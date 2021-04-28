@@ -1,11 +1,8 @@
 <h1><%= @merchant.name %>'s Discounts</h1>
 
 <h4>Upcoming Holidays:</h4>
-<% @holidayservices.each do |holiday| %>
-  <section id="holiday-<%= holiday.date %>">
-    <%= holiday.name %> - <%= holiday.date %><br>
-  </section>
-<% end %>
+<%= render partial: "upcoming_holidays", locals: {holidays: @holidayservices, merchant: @merchant } %>
+
 
 <h2>Discounts:</h2>
 <% @merchant.discounts.each do |discount| %>
@@ -13,7 +10,11 @@
     <p>Discount ID: <%= discount.id %></p><br>
     <%= "#{discount.percent_discount}% off when you buy #{discount.quantity_threshold} items." %><br>
     <%= link_to "Discount Info", merchant_discount_path(@merchant, discount) %><br>
+
+    <% if discount.pending_invoices.empty?%>
     <%= link_to "Delete Discount", merchant_discount_path(@merchant, discount), method: :delete %><br>
+      <% else %>
+    <% end %>
 
   </section>
 <% end %>
