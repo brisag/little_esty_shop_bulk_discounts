@@ -22,29 +22,16 @@ class Invoice < ApplicationRecord
   end
 
   def total_discount_revenue
-    #use recursion since we get multiple rows of data
     discounts_total = 0
-    # binding.pry
-    find_discount.each do |row|
-      discounts_total += row.max
+    find_discount.each do |highest_discount|
+      discounts_total += highest_discount.max
     end
      discounts_total
   end
 
 
   def calculate_total_revenue_with_discounts
+    # return total_revenue if find_discount.nil?
     total_revenue - total_discount_revenue
   end
 end
-
-
-# Invoice Class
-#apply to invoice class directly instead.  no id needed
-
-# def self.find_discount(id)
-#   joins(merchant: :discounts).
-#   select('invoice_items.*, discounts.percent_discount AS discount, discounts.id AS discount_id').
-#   where("invoice_items.id = ? AND invoice_items.quantity >= discounts.quantity_threshold", id).
-#   order('discounts.percent_discount DESC').
-#   limit(1).first
-# end
