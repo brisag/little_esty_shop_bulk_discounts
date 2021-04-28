@@ -1,0 +1,5 @@
+<% @holidayservices.each do |holiday| %>
+  <section id="holiday-<%= holiday.date %>">
+    <%= holiday.name %> - <%= holiday.date %><br>
+  </section>
+<% end %>
