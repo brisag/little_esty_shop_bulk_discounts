@@ -2,4 +2,7 @@
 <h2>Discount Percent: <%= @discount.percent_discount %>%</h2>
 <h2>Quantity Threshold: <%= @discount.quantity_threshold %> Items</h2><br>
 
+<% if @discount.pending_invoices.empty?%>
 <%= link_to "Edit Discount", edit_merchant_discount_path(@merchant, @discount)%>
+<% else %>
+<% end %>
